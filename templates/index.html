@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lab1 - Simple Store</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .counter {
+            font-size: 5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        .connected {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #999;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Simple Online Store</h1>
+        <p class="subtitle">Simulating Black Friday traffic - Visit Counter</p>
+
+        <div class="counter">
+            {% if status == 'connected' %}
+                {{ count }}
+            {% else %}
+                ???
+            {% endif %}
+        </div>
+
+        <p>Total Page Visits</p>
+
+        <div class="info-box">
+            <h3>System Status</h3>
+            <div class="status {{ status }}">
+                Redis: {{ status|upper }}
+            </div>
+            <p><strong>Container ID:</strong> {{ hostname }}</p>
+        </div>
+
+        {% if status == 'disconnected' %}
+            <div class="info-box" style="border-left-color: #dc3545;">
+                <h3>⚠️ Warning</h3>
+                <p>{{ error }}</p>
+                <p>Backend connection failed. This could be a simulated failure for testing.</p>
+            </div>
+        {% endif %}
+
+        <button class="refresh-btn" onclick="window.location.reload()">
+            🔄 Simulate New Visitor
+        </button>
+
+        <div class="footer">
+            <p>Lab 1: Container Orchestration • Docker Swarm</p>
+            <p>Each refresh = +1 hit. Try scaling to see load balancing!</p>
+        </div>
+    </div>
+
+</body>
+</html>
