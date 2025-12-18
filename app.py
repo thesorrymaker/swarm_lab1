@@ -20,10 +20,6 @@ redis_client = redis.Redis(
 
 @app.route('/')
 def index():
-    """
-    主页：显示访问计数器
-    每次刷新页面，计数器加1
-    """
     try:
         # 增加计数器
         count = redis_client.incr('page_visits')
